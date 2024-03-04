@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-static void	my_pixel_put(int x, int y, t_img *img, int color)
+static void	img_render(int x, int y, t_img *img, int color)
 {
 	int			offset;
 
@@ -34,7 +34,7 @@ static void	mandel_vs_julia(t_complex *z, t_complex *c, t_fractal *fractal)
 	}
 }
 
-static void	handle_pixel(int x, int y, t_fractal *fractal)
+static void	handle_render(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
 	t_complex	c;
@@ -50,13 +50,13 @@ static void	handle_pixel(int x, int y, t_fractal *fractal)
 		z = sum_complex(square_complex(z), c);
 		if ((z.x * z.x) + (z.y * z.y) > fractal->esc_val)
 		{
-			color = map(i, PSYCHEDELIC_PURPLE, HOT_PINK, fractal->iter_def);
-			my_pixel_put(x, y, &fractal->img, color);
+			color = map(i, AQUA_DREAM, HOT_PINK, fractal->iter_def);
+			img_render(x, y, &fractal->img, color);
 			return ;
 		}
 		++i;
 	}
-	my_pixel_put(x, y, &fractal->img, WHITE);
+	img_render(x, y, &fractal->img, WHITE);
 }
 
 void	fractal_render(t_fractal *fractal)
@@ -69,7 +69,7 @@ void	fractal_render(t_fractal *fractal)
 	{
 		x = -1;
 		while (++x < WIDTH)
-			handle_pixel(x, y, fractal);
+			handle_render(x, y, fractal);
 	}
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img.img, 0, 0);
 }

@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <math.h>
 # include <stdio.h>
+# include <stdbool.h>
 
 # define MANDELBROT "\033[32;4m./fractol mandelbrot\e[0m"
 # define JULIA "\033[32;4m./fractol julia <value_1> <value_2>\e[0m\n\n"
@@ -45,7 +46,18 @@ enum
 	ESC			= 53,
 	ON_DESTROY	= 17,
 	ON_MOUSE_DW	= 4,
+	UP_ARROW = 126,
+	DOWN_ARROW = 125,
+	LEFT_ARROW = 123,
+	RIGHT_ARROW = 124,
 };
+
+typedef struct s_double
+{
+	int	dots;
+	int	digits;
+	int	i;
+}	t_double;
 
 typedef struct s_complex
 {
@@ -80,6 +92,7 @@ typedef struct s_fractal
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		ft_putstr_fd(char *s, int fd);
 double		atodbl(char *s);
+bool		is_valid_double(const char *str);
 
 void		fractal_init(t_fractal *fractal);
 void		fractal_render(t_fractal *fractal);

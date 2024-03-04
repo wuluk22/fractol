@@ -30,7 +30,7 @@ static void	data_init(t_fractal *fractal)
 void	events_init(t_fractal *fractal)
 {
 	mlx_hook(fractal->win, ON_MOUSE_DW, 0, mouse_handle, fractal);
-	mlx_key_hook(fractal->win, handle_keys, NULL);
+	mlx_key_hook(fractal->win, handle_keys, fractal);
 	mlx_hook(fractal->win, ON_DESTROY, 0, (void *)close_event, fractal);
 }
 
@@ -69,6 +69,11 @@ int	main(int argc, char **argv)
 		fractal.name = argv[1];
 		if (!ft_strncmp(fractal.name, "julia", 5))
 		{
+			if (!is_valid_double(argv[2]) || !is_valid_double(argv[3]))
+			{
+				ft_putstr_fd(("Invalid input for Julia set\n"), STDERR_FILENO);
+				exit(EXIT_FAILURE);
+			}
 			fractal.julia_x = atodbl(argv[2]);
 			fractal.julia_y = atodbl(argv[3]);
 		}
