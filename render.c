@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-static void	img_render(int x, int y, t_img *img, int color)
+static void	pixel_render(int x, int y, t_img *img, int color)
 {
 	int			offset;
 
@@ -51,12 +51,12 @@ static void	handle_render(int x, int y, t_fractal *fractal)
 		if ((z.x * z.x) + (z.y * z.y) > fractal->esc_val)
 		{
 			color = map(i, AQUA_DREAM, HOT_PINK, fractal->iter_def);
-			img_render(x, y, &fractal->img, color);
+			pixel_render(x, y, &fractal->img, color);
 			return ;
 		}
 		++i;
 	}
-	img_render(x, y, &fractal->img, WHITE);
+	pixel_render(x, y, &fractal->img, WHITE);
 }
 
 void	fractal_render(t_fractal *fractal)

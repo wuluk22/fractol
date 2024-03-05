@@ -67,16 +67,22 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
+static void	valid_init(t_double *vld)
+{
+	vld->dots = 0;
+	vld->digits = 0;
+	vld->i = 0;
+}
+
 bool	is_valid_double(const char *str)
 {
 	t_double	vld;
 
-	vld.dots = 0;
-	vld.digits = 0;
-	vld.i = 0;
+	valid_init(&vld);
 	while (str[vld.i] != '\0')
 	{
-		if ((str[vld.i] >= '0' && str[vld.i] <= '9') || (str[vld.i] == '.'))
+		if ((str[vld.i] >= '0' && str[vld.i] <= '9') || (str[vld.i] == '.')
+			|| (vld.i == 0 && str[vld.i] == '-'))
 		{
 			if (str[vld.i] == '.')
 			{
